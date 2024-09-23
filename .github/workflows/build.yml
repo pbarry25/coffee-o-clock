@@ -1,0 +1,46 @@
+name: Build Workflow
+
+on:
+  push:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Run PyInstaller
+        run: |
+          python -m PyInstaller --onefile --name coffee-o-clock.exe app.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coffee-o-clock-windows
+          path: dist/coffee-o-clock.exe
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          architecture: 'arm64'
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Run PyInstaller
+        run: |
+          python -m PyInstaller --onefile --name coffee-o-clock app.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coffee-o-clock-macOS
+          path: dist/coffee-o-clock
