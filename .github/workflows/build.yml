@@ -19,7 +19,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run PyInstaller
         run: |
-          python -m PyInstaller --onefile --name coffee-o-clock.exe --add-data "images\*;images" app.py
+          python -m PyInstaller --onefile --name coffee-o-clock.exe --add-data "images\clock.gif;images" --add-data "images\half-life_formula.jpg;images" --add-data "images\white_on_black.ico;images" app.py
       - uses: actions/upload-artifact@v3
         with:
           name: coffee-o-clock-windows
@@ -39,7 +39,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run PyInstaller
         run: |
-          python -m PyInstaller --onefile --name coffee-o-clock --add-data "images/*:images" app.py
+          python -m PyInstaller --onefile --name coffee-o-clock --add-data "images/clock.gif:images" --add-data "images/half-life_formula.jpg:images" --add-data "images/white_on_black.ico:images" app.py
       - uses: actions/upload-artifact@v3
         with:
           name: coffee-o-clock-macOS
